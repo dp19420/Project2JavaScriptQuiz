@@ -1,14 +1,58 @@
 body {
-    background-color:papayawhip;
+    background-color: papayawhip;
     height: 100vh;
     width: 100vw;
     font-size: 20px;
     margin: 0;
     padding: 0;
     color: darkslategrey;
-    
+
 }
-h1 {color: darkgoldenrod;
-font-size: 4rem;
-align-self: center;
-margin-bottom: 3rem;}
+
+h1 {
+    color: darkgoldenrod;
+    font-size: 4rem;
+    align-self: center;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+h2 {
+    color: darkgoldenrod;
+    font-size: 3rem;
+    align-self: center;
+    margin-bottom: 2rem;
+    font-weight: 800;
+}
+
+.questionbox {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80%;
+    margin: 0 auto;
+}
+.flex-vertical {
+    display: flex;
+    flex-direction: column;
+}
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    text-align: center;
+    border: 3px solid darkgoldenrod;
+    background-color: whitesmoke;
+    padding: 10px;
+    margin: 10px;
+    color: black;
+    text-decoration: none;
+    width: 50%;
+}
+.button:hover {
+    background-color: bisque;
+}
