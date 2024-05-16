@@ -8,7 +8,7 @@ let question = {};
 let chosen = true;
 let total = 0;
 let thisQuestion = 0;
-let questionsLeft = ();
+let questionsLeft = [];
 
 let questions = [
     {
@@ -18,7 +18,7 @@ let questions = [
         answer3: "Sargon of Akkad",
         answer4: "Cyrus the Great",
         correct: 3
-    }
+    },
     {
         question: "By what name have the city of Istanbul NOT been known?",
         answer1: "Mikligarðr",
@@ -26,7 +26,7 @@ let questions = [
         answer3: "Byzantium",
         answer4: "Lygos",
         correct: 2
-    }
+    },
     {
         question: "When did the great Jewish Revolt start?",
         answer1: "66 CE",
@@ -34,14 +34,30 @@ let questions = [
         answer3: "403 BCE",
         answer4: "237 CE",
         correct: 1
-    }
+    },
     {
-        qusetion: "What year was the Battle of Thermopylae",
+        question: "What year was the Battle of Thermopylae",
         answer1: "550 BC",
         answer2: "480 BC",
         answer3: "310 BC",
         answer4: "Fictonal",
         correct: 2
-    }
-    
-]
+    },
+
+];
+const correctPoints = 1;
+
+function startQuiz() {
+    total = 0;
+    thisQuestion = 0;
+    questionsLeft = [...questions];
+    getNextQuestion();
+}
+function getNextQuestion() {
+    thisQuestion++;
+    const questionList = Math.floor(Math.random() * questionsLeft.lenght);
+    question = questionsLeft[questionList];
+    query.innerText = question;
+
+}
+startQuiz()
