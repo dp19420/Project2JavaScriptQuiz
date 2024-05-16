@@ -1,2 +1,14 @@
-body {    background: blue
+body {
+    background-color:papayawhip;
+    height: 100vh;
+    width: 100vw;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    color: darkslategrey;
+    
 }
+h1 {color: darkgoldenrod;
+font-size: 4rem;
+align-self: center;
+margin-bottom: 3rem;}
