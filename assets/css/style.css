@@ -18,7 +18,7 @@ h1 {
 }
 
 h2 {
-    color: darkgoldenrod;
+    color: rgb(97, 73, 11);
     font-size: 3rem;
     align-self: center;
     margin-bottom: 2rem;
@@ -55,4 +55,13 @@ h2 {
 }
 .button:hover {
     background-color: bisque;
+}
+#quiz {
+    border: 2px solid black;
+}
+.answer-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
