@@ -2,7 +2,7 @@ const query = document.getElementById("query");
 const answers = Array.from(document.getElementsByClassName("answer-text"));
 
 let currentQuestion = {};
-let acceptingAnswers = true;
+let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
@@ -62,6 +62,7 @@ function getFirstQuestion() {
     answers[1].innerText = currentQuestion.answer2;
     answers[2].innerText = currentQuestion.answer3;
     answers[3].innerText = currentQuestion.answer4;
+    acceptingAnswers = true;
 
 };
 function getNextQuestion() {
@@ -72,5 +73,7 @@ function getNextQuestion() {
     answers[1].innerText = currentQuestion.answer2;
     answers[2].innerText = currentQuestion.answer3;
     answers[3].innerText = currentQuestion.answer4;
-}
+    acceptingAnswers = true;
+
+};
 startGame();
