@@ -1,14 +1,11 @@
 const query = document.getElementById("query");
-const answer1 = document.getElementById("answer1");
-const answer2 = document.getElementById("answer2");
-const answer3 = document.getElementById("answer3");
-const answer4 = document.getElementById("answer4");
+const answers = Array.from(document.getElementsByClassName("answer-text"));
 
-let question = {};
-let chosen = true;
-let total = 0;
-let thisQuestion = 0;
-let questionsLeft = [];
+let currentQuestion = {};
+let acceptingAnswers = true;
+let score = 0;
+let questionCounter = 0;
+let availableQuestions = [];
 
 let questions = [
     {
@@ -45,19 +42,35 @@ let questions = [
     },
 
 ];
-const correctPoints = 1;
+//CONSTANTS
 
-function startQuiz() {
-    total = 0;
-    thisQuestion = 0;
-    questionsLeft = [...questions];
-    getNextQuestion();
-}
+const CORRECT_BONUS = 10;
+const MAX_QUESTIONS = 4;
+
+function startGame() {
+    questionCounter = 0;
+    score = 0;
+    availableQuestions = [...questions];
+    console.log(availableQuestions);
+    getFirstQuestion();
+};
+function getFirstQuestion() {
+    questionCounter = 0;
+    currentQuestion = availableQuestions[questionCounter];
+    query.innerText = currentQuestion.question;
+    answers[0].innerText = currentQuestion.answer1;
+    answers[1].innerText = currentQuestion.answer2;
+    answers[2].innerText = currentQuestion.answer3;
+    answers[3].innerText = currentQuestion.answer4;
+
+};
 function getNextQuestion() {
-    thisQuestion++;
-    const questionList = Math.floor(Math.random() * questionsLeft.lenght);
-    question = questionsLeft[questionList];
-    query.innerText = question;
-
+    questionCounter++;
+    currentQuestion = availableQuestions[questionCounter];
+    query.innerText = currentQuestion.question;
+    answers[0].innerText = currentQuestion.answer1;
+    answers[1].innerText = currentQuestion.answer2;
+    answers[2].innerText = currentQuestion.answer3;
+    answers[3].innerText = currentQuestion.answer4;
 }
-startQuiz()
+startGame();
