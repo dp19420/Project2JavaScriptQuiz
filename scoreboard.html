@@ -15,6 +15,20 @@
                 <input type="text" name="username" id="username" placeholder="username">
                 <button type="submit" class="button" id="saveScoreBtn" onclick="saveHighScore(event)" disabled>Save</button>
             </form>
+
+            <h2>High Scores</h2>
+            <table id="highScoreTable">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="highScoreTableBody">
+                </tbody>
+            </table>
+
             <a class="button" href="play.html">Play Again</a>
             <a href="index.html" class="button">Home</a>
         </div>
