@@ -51,29 +51,61 @@ function startGame() {
     questionCounter = 0;
     score = 0;
     availableQuestions = [...questions];
-    console.log(availableQuestions);
-    getFirstQuestion();
+    getNewQuestion();
+    updateScoreAndProgress();
 };
-function getFirstQuestion() {
-    questionCounter = 0;
-    currentQuestion = availableQuestions[questionCounter];
-    query.innerText = currentQuestion.question;
-    answers[0].innerText = currentQuestion.answer1;
-    answers[1].innerText = currentQuestion.answer2;
-    answers[2].innerText = currentQuestion.answer3;
-    answers[3].innerText = currentQuestion.answer4;
-    acceptingAnswers = true;
+function getNewQuestion() {
+    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+        localStorage.setItem('mostRecentScore', score);
+        return window.location.assign('scoreboard.html');
+    }
 
-};
-function getNextQuestion() {
     questionCounter++;
-    currentQuestion = availableQuestions[questionCounter];
+    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+    currentQuestion = availableQuestions[questionIndex];
     query.innerText = currentQuestion.question;
-    answers[0].innerText = currentQuestion.answer1;
-    answers[1].innerText = currentQuestion.answer2;
-    answers[2].innerText = currentQuestion.answer3;
-    answers[3].innerText = currentQuestion.answer4;
-    acceptingAnswers = true;
 
+    answers.forEach((answer, index) => {
+        answer.innerText = currentQuestion["answer" + (index + 1)];
+    });
+
+    availableQuestions.splice(questionIndex, 1);
+    acceptingAnswers = true;
+    updateScoreAndProgress();
 };
+
+answers.forEach(answer => {
+    answer.addEventListener('click', e => {
+        if (!acceptingAnswers) return;
+
+        acceptingAnswers = false;
+        const selectedAnswer = e.target;
+        const selectedChoice = selectedAnswer.dataset['number'];
+
+        const classToApply = selectedChoice == currentQuestion.correct ? 'correct' : 'incorrect';
+
+        if (classToApply === 'correct') {
+            incrementScore(CORRECT_BONUS);
+        }
+
+        selectedAnswer.parentElement.classList.add(classToApply);
+
+        setTimeout(() => {
+            selectedAnswer.parentElement.classList.remove(classToApply);
+            getNewQuestion();
+        }, 1000);
+    });
+});
+
+function incrementScore(num) {
+    score += num;
+    updateScoreAndProgress();
+}
+
+function updateScoreAndProgress() {
+    scoreText.innerText = score;
+    progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
+}
+
 startGame();
