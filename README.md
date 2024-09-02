@@ -47,3 +47,4 @@ This is a simple HTML and JavaScript-based quiz application that allows users to
 
 ## Bugs and Errors
 - JavaScript errors that i dont understand and are still trying to figure out how to fix
+- The empty heading warnings wich i have tried to adress but made it worse so sticking with it for now. 
