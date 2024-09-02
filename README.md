@@ -48,3 +48,4 @@ This is a simple HTML and JavaScript-based quiz application that allows users to
 ## Bugs and Errors
 - JavaScript errors that i dont understand and are still trying to figure out how to fix
 - The empty heading warnings wich i have tried to adress but made it worse so sticking with it for now. 
+- Scoreboard does not store scores globaly, cant understand how to fix that without setting up dedicated server, a problem I will work on fixing.
