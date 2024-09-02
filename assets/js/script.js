@@ -1,5 +1,8 @@
 const query = document.getElementById("query");
 const answers = Array.from(document.getElementsByClassName("answer-text"));
+const scoreText = document.getElementById("score");
+const progressText = document.getElementById("progressText");
+const progressBarFull = document.getElementById("progressBarFull");
 
 let currentQuestion = {};
 let acceptingAnswers = false;
@@ -46,66 +49,68 @@ let questions = [
 
 const CORRECT_BONUS = 10;
 const MAX_QUESTIONS = 4;
-
-function startGame() {
-    questionCounter = 0;
-    score = 0;
-    availableQuestions = [...questions];
-    getNewQuestion();
-    updateScoreAndProgress();
-};
-function getNewQuestion() {
-    if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
-        localStorage.setItem('mostRecentScore', score);
-        return window.location.assign('scoreboard.html');
+document.addEventListener('DOMContentLoaded', () => {
+    function startGame() {
+        questionCounter = 0;
+        score = 0;
+        availableQuestions = [...questions];
+        getNewQuestion();
+        updateScoreAndProgress();
     }
 
-    questionCounter++;
-    const questionIndex = Math.floor(Math.random() * availableQuestions.length);
-    currentQuestion = availableQuestions[questionIndex];
-    query.innerText = currentQuestion.question;
-
-    answers.forEach((answer, index) => {
-        answer.innerText = currentQuestion["answer" + (index + 1)];
-    });
-
-    availableQuestions.splice(questionIndex, 1);
-    acceptingAnswers = true;
-    updateScoreAndProgress();
-};
-
-answers.forEach(answer => {
-    answer.addEventListener('click', e => {
-        if (!acceptingAnswers) return;
-
-        acceptingAnswers = false;
-        const selectedAnswer = e.target;
-        const selectedChoice = selectedAnswer.dataset['number'];
-
-        const classToApply = selectedChoice == currentQuestion.correct ? 'correct' : 'incorrect';
-
-        if (classToApply === 'correct') {
-            incrementScore(CORRECT_BONUS);
+    function getNewQuestion() {
+        if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+            localStorage.setItem('mostRecentScore', score);
+            return window.location.assign('scoreboard.html');
         }
 
-        selectedAnswer.parentElement.classList.add(classToApply);
+        questionCounter++;
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions[questionIndex];
+        query.innerText = currentQuestion.question;
 
-        setTimeout(() => {
-            selectedAnswer.parentElement.classList.remove(classToApply);
-            getNewQuestion();
-        }, 1000);
+        answers.forEach((answer, index) => {
+            answer.innerText = currentQuestion["answer" + (index + 1)];
+        });
+
+        availableQuestions.splice(questionIndex, 1);
+        acceptingAnswers = true;
+        updateScoreAndProgress();
+    }
+
+    answers.forEach(answer => {
+        answer.addEventListener('click', e => {
+            if (!acceptingAnswers) return;
+
+            acceptingAnswers = false;
+            const selectedAnswer = e.target;
+            const selectedChoice = selectedAnswer.dataset['number'];
+
+            const classToApply = selectedChoice == currentQuestion.correct ? 'correct' : 'incorrect';
+
+            if (classToApply === 'correct') {
+                incrementScore(CORRECT_BONUS);
+            }
+
+            selectedAnswer.parentElement.classList.add(classToApply);
+
+            setTimeout(() => {
+                selectedAnswer.parentElement.classList.remove(classToApply);
+                getNewQuestion();
+            }, 1000);
+        });
     });
+
+    function incrementScore(num) {
+        score += num;
+        updateScoreAndProgress();
+    }
+
+    function updateScoreAndProgress() {
+        if (scoreText) scoreText.innerText = score;
+        if (progressText) progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+        if (progressBarFull) progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
+    }
+
+    startGame();
 });
-
-function incrementScore(num) {
-    score += num;
-    updateScoreAndProgress();
-}
-
-function updateScoreAndProgress() {
-    scoreText.innerText = score;
-    progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
-    progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
-}
-
-startGame();
