@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>scoreboard</title>
+    <title>Scoreboard</title>
 </head>
 <body>
     <div class="questionbox">
-
-        <div id="start" class="flex-center flex-vertical">
+        <div id="end" class="flex-center flex-vertical">
             <h1>Scoreboard</h1>
+            <h2 id="finalScore"></h2>
+            <form>
+                <input type="text" name="username" id="username" placeholder="username">
+                <button type="submit" class="button" id="saveScoreBtn" onclick="saveHighScore(event)" disabled>Save</button>
+            </form>
+            <a class="button" href="play.html">Play Again</a>
             <a href="index.html" class="button">Home</a>
-                    </div>
+        </div>
     </div>
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/scoreboard.js"></script>
 </body>
 </html>
